@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { twJoin, twMerge } from "tailwind-merge";
+import { TypingTestCharacter } from "./typing-test-character";
+import { Box } from "@chakra-ui/react";
 
 export const TypingTest = () => {
   const [characterIndex, setCharacterIndex] = useState(0);
@@ -16,34 +17,33 @@ export const TypingTest = () => {
   }, []);
 
   return (
-    <div
-      className={twJoin(
-        "relative w-[40rem] h-96 overflow-hidden p-4",
-        "font-[Roboto Mono] text-white-dark",
-        "flex flex-row flex-wrap",
-      )}
+    <Box
+      display="flex"
+      flexWrap="wrap"
+      pos="relative"
+      h={32}
+      overflow="hidden"
+      w="100%"
+      maxW="56rem"
     >
       {text.split("").map((character, i) => (
-        <div key={i} className="relative">
-          <span
-            className={twJoin(
-              "text-3xl",
-              i < characterIndex ? "" : "opacity-50",
-              "transition-all duration-100",
-            )}
-          >
-            {character === " " ? <span>&nbsp;</span> : character}
-          </span>
-          {characterIndex === i ? (
-            <div
-              className={twMerge(
-                "absolute bg-primary w-[3px] h-9 top-0.5 animate-pulse",
-              )}
+        <Box key={i}>
+          <TypingTestCharacter
+            value={character}
+            highlighted={i < characterIndex}
+          />
+          {i === characterIndex ? (
+            <Box
+              pos="absolute"
+              bg="blue.600"
+              w="3px"
+              h={8}
+              top={0.5}
+              className="animate-pulse"
             />
           ) : null}
-        </div>
+        </Box>
       ))}
-      <div className="absolute bottom-0 h-12 w-full bg-[linear-gradient(to_bottom,rgba(45,50,70,0),rgb(45,50,70))]" />
-    </div>
+    </Box>
   );
 };

@@ -6,7 +6,7 @@ import { TypingTest } from "../modules/typing-test";
 
 const Test = () => (
   <KeyboardProvider>
-    <main className="flex flex-col items-center p-24 space-y-8">
+    <main className="flex flex-col h-full items-center p-24 space-y-8">
       <TypingTest />
       <Keyboard />
     </main>

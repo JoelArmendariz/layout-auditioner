@@ -1,3 +1,4 @@
+import { HStack } from "@chakra-ui/react";
 import { KeyboardKey } from "./keyboard-key";
 import { KeyboardKeyConfig } from "./types";
 
@@ -6,9 +7,9 @@ interface KeyboardRowProps {
 }
 
 export const KeyboardRow = ({ keyboardRow }: KeyboardRowProps) => (
-  <div className="flex flex-row space-x-1.5">
+  <HStack gap={1.5}>
     {keyboardRow.map((keyboardKey, i) => (
       <KeyboardKey key={i} {...keyboardKey} />
     ))}
-  </div>
+  </HStack>
 );

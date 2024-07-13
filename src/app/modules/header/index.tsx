@@ -1,30 +1,41 @@
 "use client";
 
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { HStack, IconButton, Text, useColorMode } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
 export const Header = () => {
   const router = useRouter();
+  const { toggleColorMode, colorMode } = useColorMode();
 
   return (
-    <div className="flex items-center px-4 border-b-gray border-b h-12">
-      <h3
-        className="text-primary cursor-pointer"
-        onClick={() => router.push("/")}
-      >
+    <HStack px={4} py={2}>
+      <Text size="md" cursor="pointer" onClick={() => router.push("/")}>
         LAYOUT AUDITIONER
-      </h3>
-      <nav className="ml-auto text-white-dark">
-        <ul className="flex flex-row space-x-5">
-          <li
-            className="cursor-pointer hover:text-white"
-            onClick={() => router.push("/test")}
-          >
-            TEST
-          </li>
-          <div className="border-r border-r-gray" />
-          <li className="cursor-pointer hover:text-white">EDITOR</li>
-        </ul>
-      </nav>
-    </div>
+      </Text>
+      <HStack ml="auto" px={2} gap={4}>
+        <Text
+          fontSize="md"
+          cursor="pointer"
+          onClick={() => router.push("/test")}
+        >
+          TEST
+        </Text>
+        <Text
+          fontSize="md"
+          cursor="pointer"
+          onClick={() => router.push("/editor")}
+        >
+          EDITOR
+        </Text>
+      </HStack>
+      <IconButton
+        size="sm"
+        borderRadius="100%"
+        onClick={toggleColorMode}
+        aria-label="dark-mode-toggle"
+        icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+      />
+    </HStack>
   );
 };

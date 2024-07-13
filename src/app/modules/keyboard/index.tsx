@@ -5,29 +5,30 @@ import { QWERTY_KEYBOARD } from "./constants";
 import { KeyboardKey } from "./keyboard-key";
 import { KeyboardRow } from "./keyboard-row";
 import { useKeyboardContext } from "./context/keyboard-provider";
+import { Box, VStack } from "@chakra-ui/react";
 
 export const Keyboard = () => {
-  const { layout } = useKeyboardContext();
+  const { activeLayout } = useKeyboardContext();
 
   const keyboardRows = useMemo(
     () =>
       QWERTY_KEYBOARD.map((keyboardRow) =>
         keyboardRow.map((keyboardKey) => ({
           ...keyboardKey,
-          value: layout.keyMap[keyboardKey.value],
+          value: activeLayout.keyMap[keyboardKey.value],
         })),
       ),
-    [layout],
+    [activeLayout],
   );
 
   return (
-    <div className="space-y-1.5">
+    <VStack gap={1.5}>
       {keyboardRows.map((keyboardRow, i) => (
         <KeyboardRow key={i} keyboardRow={keyboardRow} />
       ))}
-      <div className="ml-[18.75rem]">
+      <Box ml="37rem" w="100%">
         <KeyboardKey value="space" label=" " size="6u" />
-      </div>
-    </div>
+      </Box>
+    </VStack>
   );
 };

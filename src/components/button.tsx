@@ -1,21 +1,21 @@
 import { Button as HeadlessButton } from "@headlessui/react";
+import { PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 
 type Variant = "primary" | "secondary" | "success";
 
 interface ButtonProps {
   className?: string;
-  children: string;
   onClick?: () => void;
   variant?: Variant;
 }
 
-export default function Button({
+export const Button = ({
   className,
   children,
   onClick,
   variant = "primary",
-}: ButtonProps) {
+}: PropsWithChildren<ButtonProps>) => {
   const backgroundColorVariantMap: Record<Variant, string> = {
     primary:
       "bg-primary data-[hover]:bg-primary-hover data-[active]:bg-primary-active",
@@ -37,4 +37,4 @@ export default function Button({
       {children}
     </HeadlessButton>
   );
-}
+};

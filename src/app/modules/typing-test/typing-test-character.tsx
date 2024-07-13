@@ -1,26 +1,23 @@
-import { twJoin, twMerge } from "tailwind-merge";
+import { Box, Text } from "@chakra-ui/react";
 
-interface TypingTestCharacterProps {}
+interface TypingTestCharacterProps {
+  value: string;
+  highlighted?: boolean;
+}
 
-export const TypingTestCharacter = () => {
+export const TypingTestCharacter = ({
+  value,
+  highlighted,
+}: TypingTestCharacterProps) => {
   return (
-    <div key={i} className="relative">
-      <span
-        className={twJoin(
-          "text-3xl",
-          i < characterIndex ? "" : "opacity-50",
-          "transition-all duration-100",
-        )}
-      >
-        {character === " " ? <span>&nbsp;</span> : character}
-      </span>
-      {characterIndex === i ? (
-        <div
-          className={twMerge(
-            "absolute bg-primary w-[3px] h-9 top-0.5 animate-pulse",
-          )}
-        />
-      ) : null}
-    </div>
+    <Box pos="relative">
+      {value === " " ? (
+        <Text as="span">&nbsp;</Text>
+      ) : (
+        <Text as="span" fontSize="2xl" opacity={highlighted ? "" : "50%"}>
+          {value}
+        </Text>
+      )}
+    </Box>
   );
 };
