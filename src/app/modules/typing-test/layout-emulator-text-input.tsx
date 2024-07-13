@@ -13,10 +13,14 @@ export const LayoutEmulatorTextInput = ({
   onChange,
 }: LayoutEmulatorTextInputProps) => {
   const [inputValue, setInputValue] = useState("");
-  const { layout } = useKeyboardContext();
+  const { activeLayout } = useKeyboardContext();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const emulatedInput = emulateLayout(e.target.value, inputValue, layout);
+    const emulatedInput = emulateLayout(
+      e.target.value,
+      inputValue,
+      activeLayout,
+    );
     setInputValue(emulatedInput);
     onChange?.(emulatedInput);
   };

@@ -53,19 +53,22 @@ export const KeyboardProvider = ({ children }: PropsWithChildren) => {
     [layouts, toast],
   );
 
-  const saveNewLayout = useCallback((newLayoutName: string) => {
-    const newLayout = {
-      ...QWERTY_LAYOUT,
-      name: newLayoutName,
-    };
-    setLayouts((prevLayouts) => [...prevLayouts, newLayout]);
-    toast({
-      title: `Layout "${newLayoutName}" created`,
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-  }, []);
+  const saveNewLayout = useCallback(
+    (newLayoutName: string) => {
+      const newLayout = {
+        ...QWERTY_LAYOUT,
+        name: newLayoutName,
+      };
+      setLayouts((prevLayouts) => [...prevLayouts, newLayout]);
+      toast({
+        title: `Layout "${newLayoutName}" created`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    },
+    [toast],
+  );
 
   const deleteLayout = useCallback(
     (layoutToDelete: string) => {
