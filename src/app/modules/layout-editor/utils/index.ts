@@ -4,8 +4,10 @@ const isCharacterKeyboardKey = (
   character: string,
   layout: Layout,
 ): character is Key =>
-  !!layout.keyMap.some((layoutRow) =>
-    layoutRow.some((layoutKeyConfig) => layoutKeyConfig.value === character),
+  layout.keyMap.some((layoutRow) =>
+    layoutRow.some(
+      (layoutKeyConfig) => layoutKeyConfig.qwertyValue === character,
+    ),
   );
 
 export const emulateLayout = (
@@ -31,5 +33,6 @@ export const emulateLayout = (
       emulatedLastCharacter = emulatedLastCharacterConfig.value;
     }
   }
+
   return `${inputWithoutLastCharacter}${emulatedLastCharacter}`;
 };
