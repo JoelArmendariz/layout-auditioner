@@ -1,9 +1,9 @@
 "use client";
 
-import { TextInput } from "@/components/text-input";
 import { ChangeEvent, useState } from "react";
-import { useKeyboardContext } from "../keyboard/context/keyboard-provider";
-import { emulateLayout } from "./utils";
+import { useKeyboardContext } from "../../keyboard/context/keyboard-provider";
+import { emulateLayout } from "../utils";
+import { Input } from "@chakra-ui/react";
 
 interface LayoutEmulatorTextInputProps {
   onChange?: (value: string) => void;
@@ -25,5 +25,11 @@ export const LayoutEmulatorTextInput = ({
     onChange?.(emulatedInput);
   };
 
-  return <TextInput onChange={handleChange} value={inputValue} />;
+  return (
+    <Input
+      placeholder="Test your layout..."
+      onChange={handleChange}
+      value={inputValue}
+    />
+  );
 };

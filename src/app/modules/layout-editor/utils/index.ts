@@ -3,7 +3,10 @@ import { Key, Layout } from "../../keyboard/types";
 const isCharacterKeyboardKey = (
   character: string,
   layout: Layout,
-): character is Key => !!layout.keyMap[character as Key];
+): character is Key =>
+  !!layout.keyMap.some((layoutRow) =>
+    layoutRow.some((layoutKeyConfig) => layoutKeyConfig.value === character),
+  );
 
 export const emulateLayout = (
   newInputValue: string,
@@ -18,6 +21,15 @@ export const emulateLayout = (
   if (!isCharacterKeyboardKey(lastInputCharacter, layout)) return newInputValue;
 
   const inputWithoutLastCharacter = newInputValue.slice(0, -1);
-  const emulatedLastCharacter = layout.keyMap[lastInputCharacter];
+
+  let emulatedLastCharacter = "";
+  for (const layoutRow of layout.keyMap) {
+    const emulatedLastCharacterConfig = layoutRow.find(
+      (layoutKeyConfig) => layoutKeyConfig.qwertyValue === lastInputCharacter,
+    );
+    if (emulatedLastCharacterConfig) {
+      emulatedLastCharacter = emulatedLastCharacterConfig.value;
+    }
+  }
   return `${inputWithoutLastCharacter}${emulatedLastCharacter}`;
 };

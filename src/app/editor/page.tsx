@@ -1,20 +1,16 @@
 "use client";
 
 import { VStack } from "@chakra-ui/react";
-import { EditorToolbar } from "../modules/editor-toolbar";
-import { Keyboard } from "../modules/keyboard";
 import { KeyboardProvider } from "../modules/keyboard/context/keyboard-provider";
+import { LayoutEditor } from "../modules/layout-editor";
 
 const Editor = () => {
   return (
-    <main className="flex flex-col h-full items-center justify-center p-24">
+    <VStack h="calc(100% - 3rem)" alignItems="center" justifyContent="center">
       <KeyboardProvider>
-        <VStack gap="1rem">
-          <EditorToolbar />
-          <Keyboard />
-        </VStack>
+        <LayoutEditor />
       </KeyboardProvider>
-    </main>
+    </VStack>
   );
 };
 

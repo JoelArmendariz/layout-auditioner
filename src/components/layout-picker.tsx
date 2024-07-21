@@ -7,7 +7,6 @@ import {
   AlertDialogOverlay,
   Box,
   Button,
-  IconButton,
   Menu,
   MenuButton,
   MenuItem,
@@ -37,18 +36,18 @@ export const LayoutPicker = () => {
             <MenuItem key={i} onClick={() => setActiveLayout(layout.name)}>
               {layout.name}
               {layout.name !== "QWERTY" ? (
-                <IconButton
-                  ml="auto"
-                  colorScheme="red"
-                  variant="ghost"
-                  size="sm"
+                <DeleteIcon
                   aria-label="delete-layout"
+                  ml="auto"
+                  color="red.300"
+                  _hover={{
+                    color: "red.400",
+                  }}
                   onClick={(e) => {
                     e.stopPropagation();
                     setLayoutToDelete(layout.name);
                     onOpen();
                   }}
-                  icon={<DeleteIcon />}
                 />
               ) : null}
             </MenuItem>

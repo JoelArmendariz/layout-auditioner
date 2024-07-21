@@ -1,15 +1,14 @@
 "use client";
 
-import { Keyboard } from "../modules/keyboard";
+import { VStack } from "@chakra-ui/react";
 import { KeyboardProvider } from "../modules/keyboard/context/keyboard-provider";
 import { TypingTest } from "../modules/typing-test";
 
 const Test = () => (
   <KeyboardProvider>
-    <main className="flex flex-col h-full items-center p-24 space-y-8">
+    <VStack h="calc(100% - 3rem)" justifyContent="center">
       <TypingTest />
-      <Keyboard />
-    </main>
+    </VStack>
   </KeyboardProvider>
 );
 export default Test;

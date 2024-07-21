@@ -9,7 +9,7 @@ export const Header = () => {
   const { toggleColorMode, colorMode } = useColorMode();
 
   return (
-    <HStack px={4} py={2}>
+    <HStack px={4} py={2} h="3rem">
       <Text size="md" cursor="pointer" onClick={() => router.push("/")}>
         LAYOUT AUDITIONER
       </Text>

@@ -68,10 +68,11 @@ export type Size =
 export interface KeyboardKeyConfig {
   label?: string;
   value: Key;
+  qwertyValue: Key;
   size: Size;
 }
 
-export type KeyMap = Record<Key, Key>;
+export type KeyMap = KeyboardKeyConfig[][];
 
 export interface Layout {
   name: string;

@@ -1,20 +1,35 @@
 import { KeyboardKeyConfig } from "./types";
 import { getKeyWidthBySize } from "./utils";
-import { Box, Text, useColorModeValue } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
-export const KeyboardKey = ({ value, size, label }: KeyboardKeyConfig) => {
-  const bg = useColorModeValue("gray.400", "gray.700");
+interface KeyboardKeyProps extends Omit<KeyboardKeyConfig, "qwertyValue"> {
+  onClick?: () => void;
+  focused?: boolean;
+}
+
+export const KeyboardKey = ({
+  value,
+  size,
+  label,
+  onClick,
+  focused,
+}: KeyboardKeyProps) => {
+  const handleClick = () => onClick?.();
 
   return (
-    <Box
-      bg={bg}
+    <Button
+      onClick={handleClick}
       w={getKeyWidthBySize(size)}
+      alignItems="start"
+      justifyContent="start"
       h={16}
       px={3}
-      py={1}
+      py={2}
       borderRadius={4}
+      outline={focused ? "2px solid #4299e1" : ""}
+      outlineOffset="2px"
     >
-      <Text>{label ?? value}</Text>
-    </Box>
+      {label ?? value}
+    </Button>
   );
 };

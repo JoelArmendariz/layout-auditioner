@@ -18,11 +18,19 @@ export const KeyboardProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     const storedLayoutsStr = localStorage.getItem("layouts");
-    const storedLayouts = JSON.parse(storedLayoutsStr ?? "[]");
+    const storedLayouts: Layout[] = JSON.parse(storedLayoutsStr ?? "[]");
     if (!storedLayouts.length) {
       const defaultLayouts = [QWERTY_LAYOUT, DVORAK_LAYOUT];
       setLayouts(defaultLayouts);
       return;
+    }
+    const storedActiveLayout = localStorage.getItem("activeLayout");
+    if (storedActiveLayout) {
+      setActiveLayoutState(
+        storedLayouts.find(
+          (storedLayout) => storedLayout.name === storedActiveLayout,
+        ) ?? QWERTY_LAYOUT,
+      );
     }
     setLayouts(storedLayouts);
   }, []);
@@ -39,6 +47,7 @@ export const KeyboardProvider = ({ children }: PropsWithChildren) => {
       );
       if (existingLayout) {
         setActiveLayoutState(existingLayout);
+        localStorage.setItem("activeLayout", existingLayout.name);
       } else {
         toast({
           title: "Layout not found",
@@ -51,6 +60,24 @@ export const KeyboardProvider = ({ children }: PropsWithChildren) => {
       }
     },
     [layouts, toast],
+  );
+
+  const editLayout = useCallback(
+    (updatedLayout: Layout) => {
+      setLayouts((prevLayouts) =>
+        prevLayouts.map((prevLayout) =>
+          prevLayout.name === updatedLayout.name ? updatedLayout : prevLayout,
+        ),
+      );
+      setActiveLayoutState(updatedLayout);
+      toast({
+        title: `Layout "${updatedLayout.name}" updated`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    },
+    [toast],
   );
 
   const saveNewLayout = useCallback(
@@ -90,10 +117,18 @@ export const KeyboardProvider = ({ children }: PropsWithChildren) => {
       activeLayout,
       setActiveLayout,
       saveNewLayout,
+      editLayout,
       deleteLayout,
       layouts,
     }),
-    [activeLayout, setActiveLayout, saveNewLayout, deleteLayout, layouts],
+    [
+      activeLayout,
+      setActiveLayout,
+      saveNewLayout,
+      editLayout,
+      deleteLayout,
+      layouts,
+    ],
   );
 
   return (
