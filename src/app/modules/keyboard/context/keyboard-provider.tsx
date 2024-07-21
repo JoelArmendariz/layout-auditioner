@@ -87,6 +87,7 @@ export const KeyboardProvider = ({ children }: PropsWithChildren) => {
         name: newLayoutName,
       };
       setLayouts((prevLayouts) => [...prevLayouts, newLayout]);
+      setActiveLayoutState(newLayout);
       toast({
         title: `Layout "${newLayoutName}" created`,
         status: "success",
@@ -102,6 +103,7 @@ export const KeyboardProvider = ({ children }: PropsWithChildren) => {
       setLayouts((prevLayouts) =>
         prevLayouts.filter(({ name }) => name !== layoutToDelete),
       );
+      setActiveLayoutState(QWERTY_LAYOUT);
       toast({
         title: "Layout deleted",
         status: "success",

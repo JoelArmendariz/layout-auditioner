@@ -75,7 +75,10 @@ export const LayoutForm = () => {
               <Button onClick={onClose}>Cancel</Button>
               <Button
                 type="submit"
-                onClick={handleCreateNewLayout}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleCreateNewLayout();
+                }}
                 colorScheme="blue"
               >
                 Create
